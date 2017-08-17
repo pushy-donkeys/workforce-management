@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "workforce-management", "workforce-management\workforce-management.csproj", "{29853265-2632-4DBE-8CBC-38204CD889BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "workforceManagement", "workforce-management\workforceManagement.csproj", "{29853265-2632-4DBE-8CBC-38204CD889BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7A5AF681-D5ED-48FD-A01B-D26402987516}"
 	ProjectSection(SolutionItems) = preProject
