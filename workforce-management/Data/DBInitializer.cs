@@ -14,7 +14,10 @@ namespace workforceManagement.Data
         {
             using (var context = new workforceManagementContext(serviceProvider.GetRequiredService<DbContextOptions<workforceManagementContext>>()))
             {
-
+                if (context.Computer.Any())
+                {
+                    return;
+                }
                 //seeding COMPUTERS
                 var computers = new Computer[]
                 {
@@ -115,19 +118,34 @@ namespace workforceManagement.Data
                 //seeding COMPUTER-EMPLOYEES
                 var ComputerEmp = new ComputerEmp[]
                 {
+                    //new ComputerEmp {
+                    //    EmployeeId = employees.Single(e => e.Firstname == "Jon").EmployeeId,
+                    //    ComputerId = computers.Single(c => c.Make== "Macbook").ComputerId,
+                    //    Start = DateTime.Now
+                    //},
+                    //new ComputerEmp {
+                    //    EmployeeId = employees.Single(e => e.Firstname == "Bill").EmployeeId,
+                    //    ComputerId = computers.Single(c => c.Make== "Macbook").ComputerId,
+                    //    Start = DateTime.Now
+                    //},
+                    //new ComputerEmp {
+                    //    EmployeeId = employees.Single(e => e.Firstname == "Carol").EmployeeId,
+                    //    ComputerId = computers.Single(c => c.Make== "Notebook").ComputerId,
+                    //    Start = DateTime.Now
+                    //}
                     new ComputerEmp {
-                        EmployeeId = employees.Single(e => e.Firstname == "Jon").EmployeeId,
-                        ComputerId = computers.Single(c => c.Make== "Macbook").ComputerId,
+                        EmployeeId = 4,
+                        ComputerId = 1,
                         Start = DateTime.Now
                     },
                     new ComputerEmp {
-                        EmployeeId = employees.Single(e => e.Firstname == "Bill").EmployeeId,
-                        ComputerId = computers.Single(c => c.Make== "Macbook").ComputerId,
+                        EmployeeId = 5,
+                        ComputerId = 2,
                         Start = DateTime.Now
                     },
                     new ComputerEmp {
-                        EmployeeId = employees.Single(e => e.Firstname == "Carol").EmployeeId,
-                        ComputerId = computers.Single(c => c.Make== "Notebook").ComputerId,
+                        EmployeeId =6,
+                        ComputerId = 3,
                         Start = DateTime.Now
                     }
                 };
