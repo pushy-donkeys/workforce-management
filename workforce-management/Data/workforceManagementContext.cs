@@ -16,6 +16,10 @@ namespace workforceManagement.Models
 
         public DbSet<workforceManagement.Models.Employee> Employee { get; set; }
 
+
+        public DbSet<workforceManagement.Models.Computer> Computer { get; set; }
+
         public DbSet<workforceManagement.Models.Department> Department { get; set; }
+
     }
 }
