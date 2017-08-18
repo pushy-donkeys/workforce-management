@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using workforceManagement.Models;
 
-namespace workforce_management
+namespace workforceManagement
 {
     public class Startup
     {
@@ -60,6 +60,7 @@ namespace workforce_management
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            Data.DbInitializer.Initialize(app.ApplicationServices);
         }
     }
 }

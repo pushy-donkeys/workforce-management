@@ -11,7 +11,7 @@ namespace workforceManagement.Models
         [Key]
         public int TrainingProgramId { get; set; }
         [Required]
-        public string TrainingProgramName { get; set; }
+        public string Name { get; set; }
         [Required]
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }

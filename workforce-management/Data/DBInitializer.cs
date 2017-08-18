@@ -60,15 +60,18 @@ namespace workforceManagement.Data
                 {
                     new Employee {
                         Firstname = "Jon",
-                        Lastname= "snow"
+                        Lastname= "snow",
+                        DepartmentId= 1
                     },
                     new Employee {
                         Firstname = "Bill",
-                        Lastname= "Johnson"
+                        Lastname= "Johnson",
+                        DepartmentId= 2
                     },
                     new Employee {
-                         Firstname = "Carol",
-                        Lastname= "Bridges"
+                        Firstname = "Carol",
+                        Lastname= "Bridges",
+                        DepartmentId= 1
                     }
                 };
 
@@ -113,18 +116,18 @@ namespace workforceManagement.Data
                 var ComputerEmp = new ComputerEmp[]
                 {
                     new ComputerEmp {
-                        EmployeeId = employees.Single(e => e.Firstname == "Jon" && e.Lastname=="Snow").EmployeeId,
-                        ComputerId = computers.Single(c => c.ComputerId == 1).ComputerId,
+                        EmployeeId = employees.Single(e => e.Firstname == "Jon").EmployeeId,
+                        ComputerId = computers.Single(c => c.Make== "Macbook").ComputerId,
                         Start = DateTime.Now
                     },
                     new ComputerEmp {
-                        EmployeeId = employees.Single(e => e.Firstname == "Bill" && e.Lastname== "Johnson").EmployeeId,
-                        ComputerId = computers.Single(c => c.ComputerId == 2).ComputerId,
+                        EmployeeId = employees.Single(e => e.Firstname == "Bill").EmployeeId,
+                        ComputerId = computers.Single(c => c.Make== "Macbook").ComputerId,
                         Start = DateTime.Now
                     },
                     new ComputerEmp {
-                        EmployeeId = employees.Single(e => e.Firstname == "Carol" && e.Lastname=="Bridges").EmployeeId,
-                        ComputerId = computers.Single(c => c.ComputerId == 3).ComputerId,
+                        EmployeeId = employees.Single(e => e.Firstname == "Carol").EmployeeId,
+                        ComputerId = computers.Single(c => c.Make== "Notebook").ComputerId,
                         Start = DateTime.Now
                     }
                 };
