@@ -10,8 +10,12 @@ namespace workforceManagement.Models
     {
         [Key]
         public int ComputerId { get; set; }
+        [Required]
         public DateTime CommissionDate { get; set; }
+        public DateTime? DecommisionDate { get; set; }
+        [Required]
         public string Make { get; set; }
+        [Required]
         public string Manufacturer { get; set; }
         public ICollection<ComputerEmp> ComputerEmp;
     }
