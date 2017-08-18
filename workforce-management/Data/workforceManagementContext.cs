@@ -21,5 +21,7 @@ namespace workforceManagement.Models
 
         public DbSet<workforceManagement.Models.Department> Department { get; set; }
 
+        public DbSet<workforceManagement.Models.TrainingProgram> TrainingProgram { get; set; }
+
     }
 }

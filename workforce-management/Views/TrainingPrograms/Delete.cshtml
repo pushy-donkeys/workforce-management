@@ -1,0 +1,53 @@
+@model workforceManagement.Models.TrainingProgram
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TrainingProgram</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="TrainingProgramId" />
+        <dt>
+            @Html.DisplayNameFor(model => model.TrainingProgramName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TrainingProgramName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxAttendees)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaxAttendees)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>
