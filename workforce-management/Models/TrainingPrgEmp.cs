@@ -15,6 +15,6 @@ namespace workforceManagement.Models
         public Employee Employee { get; set; }
         [Required]
         public int TrainingProgramId { get; set; }
-        public TrainingPrgEmp TrainingProgram { get; set; }
+        public TrainingProgram TrainingProgram { get; set; }
     }
 }

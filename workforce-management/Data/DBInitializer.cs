@@ -141,7 +141,8 @@ namespace workforceManagement.Data
                     new ComputerEmp {
                         EmployeeId = 5,
                         ComputerId = 2,
-                        Start = DateTime.Now
+                        Start= DateTime.Now,
+                        End = new DateTime(2019, 8, 28, 2,3,0)
                     },
                     new ComputerEmp {
                         EmployeeId =6,
@@ -156,6 +157,33 @@ namespace workforceManagement.Data
                 }
                 context.SaveChanges();
 
+
+                //ADDED SEEDED DATA FOR TRAININGPRGEMP
+                //AUTHOR: RYAN
+                var trainingPrgEmp = new TrainingPrgEmp[]
+                {
+
+                    new TrainingPrgEmp {
+                        EmployeeId = 4,
+                        TrainingProgramId = 1
+
+                    },
+                    new TrainingPrgEmp {
+                        EmployeeId = 5,
+                        TrainingProgramId = 2
+                    },
+                    new TrainingPrgEmp {
+                        EmployeeId =6,
+                        TrainingProgramId = 3
+                    }
+                };
+
+                foreach (TrainingPrgEmp i in trainingPrgEmp)
+                {
+                    context.TrainingPrgEmp.Add(i);
+                }
+                context.SaveChanges();
+                //END 
             }
         }
     }

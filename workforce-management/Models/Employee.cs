@@ -11,15 +11,19 @@ namespace workforceManagement.Models
         [Key]
         public int EmployeeId { get; set; }
         [Required]
+        [Display(Name ="First Name")]
         public string Firstname { get; set; }
         [Required]
+        [Display(Name = "Last Name")]
         public string Lastname { get; set; }
         [Required]
+        [Display(Name ="Start Date")]
         public DateTime Startdate { get; set; }
         [Required]
+        [Display(Name = "Department")]
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
-        public ICollection<TrainingPrgEmp> TrainingPrgEmp;
-        public ICollection<ComputerEmp> ComputerEmp;
+        public ICollection<TrainingPrgEmp> TrainingPrgEmp { get; set; }
+        public ICollection<ComputerEmp> ComputerEmp { get; set; }
     }
 }
