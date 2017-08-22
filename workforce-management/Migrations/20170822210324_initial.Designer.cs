@@ -8,8 +8,8 @@ using workforceManagement.Models;
 namespace workforceManagement.Migrations
 {
     [DbContext(typeof(workforceManagementContext))]
-    [Migration("20170821172130_Third")]
-    partial class Third
+    [Migration("20170822210324_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
