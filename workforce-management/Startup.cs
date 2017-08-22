@@ -60,7 +60,7 @@ namespace workforceManagement
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            //Data.DbInitializer.Initialize(app.ApplicationServices);
+            Data.DbInitializer.Initialize(app.ApplicationServices);
         }
     }
 }
