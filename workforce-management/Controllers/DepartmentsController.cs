@@ -21,6 +21,10 @@ namespace workforceManagement.Controllers
         // GET: Departments
         public async Task<IActionResult> Index()
         {
+
+            //var deptEmployees = from  in dbcontext.workforceManagement.Models.Employee.Include(t => t.EmployeeName)
+            //select EmployeeName where DepartmentId = departmentId;
+            
             return View(await _context.Department.ToListAsync());
         }
 
