@@ -41,10 +41,15 @@
         @*AUTHOR: RYAN*@
             @foreach(var x in Model.ComputerEmp)
             {
+                @if (x.End == null)
+                {
                     <dd>
                         @Html.DisplayFor(Model => x.Computer.Make)
                     </dd>
-            }
+                    }else{ 
+                        <dd>No active computer</dd>
+                    }
+                }
         @*END*@
 
        
