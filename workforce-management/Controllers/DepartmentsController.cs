@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using workforceManagement.Models;
+using workforceManagement.Models.ViewModel;
+
 
 namespace workforceManagement.Controllers
 {
@@ -22,8 +24,7 @@ namespace workforceManagement.Controllers
         public async Task<IActionResult> Index()
         {
 
-            //var deptEmployees = from  in dbcontext.workforceManagement.Models.Employee.Include(t => t.EmployeeName)
-            //select EmployeeName where DepartmentId = departmentId;
+            
             
             return View(await _context.Department.ToListAsync());
         }
@@ -31,13 +32,19 @@ namespace workforceManagement.Controllers
         // GET: Departments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            //DeptDetailViewModel deptDetail = new DeptDetailViewModel();
             if (id == null)
             {
                 return NotFound();
             }
+                
+
 
             var department = await _context.Department
-                .SingleOrDefaultAsync(m => m.DepartmentId == id);
+           .SingleOrDefaultAsync(m => m.DepartmentId == id);
+
+            department.Employee = _context.Employee.Where(x => x.DepartmentId == id).ToList();
+
             if (department == null)
             {
                 return NotFound();
