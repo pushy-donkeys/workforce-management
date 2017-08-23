@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using workforceManagement.Models;
-using workforceManagement.Models.ViewModel;
+
 
 
 namespace workforceManagement.Controllers
@@ -32,7 +32,7 @@ namespace workforceManagement.Controllers
         // GET: Departments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            //DeptDetailViewModel deptDetail = new DeptDetailViewModel();
+           
             if (id == null)
             {
                 return NotFound();
