@@ -32,10 +32,42 @@
             @Html.DisplayNameFor(model => model.Department)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Department.DepartmentId)
+            @Html.DisplayFor(model => model.Department.DepartmentName)
         </dd>
+        <dt>
+            @Html.LabelFor(model => model.ComputerEmp, "Computer(s)")
+        </dt>
+        @*BEGIN LOOPING OVER THE JOIN TABLE COMPUTEREMP TO GET TO THE MAIN TABLE OF COMPUTER*@
+        @*AUTHOR: RYAN*@
+            @foreach(var x in Model.ComputerEmp)
+            {
+                @if (x.End == null)
+                {
+                    <dd>
+                        @Html.DisplayFor(Model => x.Computer.Make)
+                    </dd>
+                    }else{ 
+                        <dd>No active computer</dd>
+                    }
+                }
+        @*END*@
+
+       
+        <dt>
+            @Html.LabelFor(model => model.TrainingPrgEmp, "Training Program")
+        </dt>
+        @*BEGIN LOOPING OVER THE JOIN TABLE TRAININGPRGEMP TO GET THE MAIN TABLE OF TRAINING PROGRAM*@
+        @*AUTHOR: RYAN*@
+            @foreach(var x in Model.TrainingPrgEmp)
+            {
+                <dd>
+                    @Html.DisplayFor(Model => x.TrainingProgram.Name)   
+                </dd>
+            }
+        @*END*@
     </dl>
 </div>
+<br />
 <div>
     <a asp-action="Edit" asp-route-id="@Model.EmployeeId">Edit</a> |
     <a asp-action="Index">Back to List</a>

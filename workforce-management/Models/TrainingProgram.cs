@@ -11,13 +11,13 @@ namespace workforceManagement.Models
         [Key]
         public int TrainingProgramId { get; set; }
         [Required]
-        public string TrainingProgramName { get; set; }
+        public string Name { get; set; }
         [Required]
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string Description { get; set; }
         public int MaxAttendees { get; set; }
-        public ICollection<TrainingPrgEmp> TrainingPrgEmp;
+        public ICollection<TrainingPrgEmp> TrainingPrgEmp { get; set; }
 
 
     }

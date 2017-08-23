@@ -14,7 +14,10 @@ namespace workforceManagement.Data
         {
             using (var context = new workforceManagementContext(serviceProvider.GetRequiredService<DbContextOptions<workforceManagementContext>>()))
             {
-
+                if (context.Computer.Any())
+                {
+                    return;
+                }
                 //seeding COMPUTERS
                 var computers = new Computer[]
                 {
@@ -60,15 +63,18 @@ namespace workforceManagement.Data
                 {
                     new Employee {
                         Firstname = "Jon",
-                        Lastname= "snow"
+                        Lastname= "snow",
+                        DepartmentId= 1
                     },
                     new Employee {
                         Firstname = "Bill",
-                        Lastname= "Johnson"
+                        Lastname= "Johnson",
+                        DepartmentId= 2
                     },
                     new Employee {
-                         Firstname = "Carol",
-                        Lastname= "Bridges"
+                        Firstname = "Carol",
+                        Lastname= "Bridges",
+                        DepartmentId= 1
                     }
                 };
 
@@ -112,19 +118,35 @@ namespace workforceManagement.Data
                 //seeding COMPUTER-EMPLOYEES
                 var ComputerEmp = new ComputerEmp[]
                 {
+                    //new ComputerEmp {
+                    //    EmployeeId = employees.Single(e => e.Firstname == "Jon").EmployeeId,
+                    //    ComputerId = computers.Single(c => c.Make== "Macbook").ComputerId,
+                    //    Start = DateTime.Now
+                    //},
+                    //new ComputerEmp {
+                    //    EmployeeId = employees.Single(e => e.Firstname == "Bill").EmployeeId,
+                    //    ComputerId = computers.Single(c => c.Make== "Macbook").ComputerId,
+                    //    Start = DateTime.Now
+                    //},
+                    //new ComputerEmp {
+                    //    EmployeeId = employees.Single(e => e.Firstname == "Carol").EmployeeId,
+                    //    ComputerId = computers.Single(c => c.Make== "Notebook").ComputerId,
+                    //    Start = DateTime.Now
+                    //}
                     new ComputerEmp {
-                        EmployeeId = employees.Single(e => e.Firstname == "Jon" && e.Lastname=="Snow").EmployeeId,
-                        ComputerId = computers.Single(c => c.ComputerId == 1).ComputerId,
+                        EmployeeId = 1,
+                        ComputerId = 1,
                         Start = DateTime.Now
                     },
                     new ComputerEmp {
-                        EmployeeId = employees.Single(e => e.Firstname == "Bill" && e.Lastname== "Johnson").EmployeeId,
-                        ComputerId = computers.Single(c => c.ComputerId == 2).ComputerId,
-                        Start = DateTime.Now
+                        EmployeeId = 2,
+                        ComputerId = 2,
+                        Start= DateTime.Now,
+                        End = new DateTime(2019, 8, 28, 2,3,0)
                     },
                     new ComputerEmp {
-                        EmployeeId = employees.Single(e => e.Firstname == "Carol" && e.Lastname=="Bridges").EmployeeId,
-                        ComputerId = computers.Single(c => c.ComputerId == 3).ComputerId,
+                        EmployeeId =3,
+                        ComputerId = 3,
                         Start = DateTime.Now
                     }
                 };
@@ -135,6 +157,33 @@ namespace workforceManagement.Data
                 }
                 context.SaveChanges();
 
+
+                //ADDED SEEDED DATA FOR TRAININGPRGEMP
+                //AUTHOR: RYAN
+                var trainingPrgEmp = new TrainingPrgEmp[]
+                {
+
+                    new TrainingPrgEmp {
+                        EmployeeId = 1,
+                        TrainingProgramId = 1
+
+                    },
+                    new TrainingPrgEmp {
+                        EmployeeId = 2,
+                        TrainingProgramId = 2
+                    },
+                    new TrainingPrgEmp {
+                        EmployeeId =3,
+                        TrainingProgramId = 3
+                    }
+                };
+
+                foreach (TrainingPrgEmp i in trainingPrgEmp)
+                {
+                    context.TrainingPrgEmp.Add(i);
+                }
+                context.SaveChanges();
+                //END 
             }
         }
     }
