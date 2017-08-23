@@ -24,6 +24,7 @@ namespace workforceManagement.Models
         public DbSet<workforceManagement.Models.TrainingProgram> TrainingProgram { get; set; }
 
         public DbSet<workforceManagement.Models.ComputerEmp> ComputerEmp { get; set; }
+        public DbSet<workforceManagement.Models.TrainingPrgEmp> TrainingPrgEmp { get; set; }
 
     }
 }
