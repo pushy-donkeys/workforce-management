@@ -35,6 +35,11 @@ namespace workforceManagement.Controllers
 
             var employee = await _context.Employee
                 .Include(e => e.Department)
+                //BEGIN THE INCLUDE FOR THE JOIN TABLES
+                //THIS GETS BACK THE TABLES FOR COMPUTER AND TRAININGPRGEMP FOR THE SELECTED EMPLOYEE
+                .Include("ComputerEmp.Computer")
+                .Include("TrainingPrgEmp.TrainingProgram")
+                //END 
                 .SingleOrDefaultAsync(m => m.EmployeeId == id);
             if (employee == null)
             {
