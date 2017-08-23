@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using workforceManagement.Models;
+using workforceManagement.Models.ViewModels;
 
 namespace workforceManagement.Controllers
 {
@@ -27,19 +28,32 @@ namespace workforceManagement.Controllers
         // GET: TrainingPrograms/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            // This creates a new instance of the TP view model
+
+            TrainingProgramViewModel TPViewMod = new TrainingProgramViewModel();
             if (id == null)
             {
                 return NotFound();
             }
 
-            var trainingProgram = await _context.TrainingProgram
+
+            TrainingProgram tp = await _context.TrainingProgram.Include(etp => etp.TrainingPrgEmp)                
                 .SingleOrDefaultAsync(m => m.TrainingProgramId == id);
-            if (trainingProgram == null)
+
+            TPViewMod.TrainProg = tp;
+            // TPViewMod.Emp = new List<Employee>();
+
+            foreach (var x in tp.TrainingPrgEmp)
+            {
+                TPViewMod.Emp.Add(x.Employee);
+            }
+
+                if (TPViewMod.TrainProg == null)
             {
                 return NotFound();
             }
 
-            return View(trainingProgram);
+            return View(TPViewMod);
         }
 
         // GET: TrainingPrograms/Create

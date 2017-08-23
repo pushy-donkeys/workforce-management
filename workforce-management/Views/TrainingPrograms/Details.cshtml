@@ -40,6 +40,14 @@
         <dd>
             @Html.DisplayFor(model => model.MaxAttendees)
         </dd>
+        <dt>
+            @Html.LabelFor(model => model.TrainingPrgEmp, "Employee")        
+        </dt>
+
+        @foreach(var x in Model.TrainingPrgEmp)
+        {
+            @x.Employee.Firstname @x.Employee.Lastname;
+        }
     </dl>
 </div>
 <div>
