@@ -8,9 +8,10 @@ namespace workforceManagement.Models.ViewModels
 {
     public class TrainingProgramViewModel
     {
-        // create an instance of TrainingProgram
+        // This is the instance that holds the TrainingProgram the user wants to view 
         public TrainingProgram TrainProg { get; set; }
-        // this allows us to get a list of all employees attending a program
+
+        // this is a list of all employees attending a particular program
         public List<Employee> Emp { get; set; }
     }
 }
