@@ -37,7 +37,8 @@ namespace workforceManagement.Controllers
                 return NotFound();
             }
 
-            // Created a variable 'tp' to hold the specific instance the user clicked on in the index. The TrainingProgramId gets passed into the method.
+            // Created a variable 'tp' to hold the specific instance the user clicked on in the index. 
+            // The TrainingProgramId gets passed into the method.
             TrainingProgram tp = await _context.TrainingProgram.Include(etp => etp.TrainingPrgEmp)                
                 .SingleOrDefaultAsync(m => m.TrainingProgramId == id);
 
