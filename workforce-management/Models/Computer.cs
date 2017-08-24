@@ -17,6 +17,6 @@ namespace workforceManagement.Models
         public string Make { get; set; }
         [Required]
         public string Manufacturer { get; set; }
-        public ICollection<ComputerEmp> ComputerEmp;
+        public ICollection<ComputerEmp> ComputerEmp { get; set; }
     }
 }

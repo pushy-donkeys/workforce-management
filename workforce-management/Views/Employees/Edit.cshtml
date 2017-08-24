@@ -1,4 +1,4 @@
-@model workforceManagement.Models.Employee
+@model workforceManagement.Models.ViewModels.EmployeeEditViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -11,35 +11,51 @@
         <h4>Employee</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="EmployeeId" />
+    <input type="hidden" asp-for="Emp.EmployeeId" />
         <div class="form-group">
-            <label asp-for="Firstname" class="col-md-2 control-label"></label>
+            <label asp-for="Emp.Firstname" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Firstname" class="form-control" />
-                <span asp-validation-for="Firstname" class="text-danger"></span>
+                <input asp-for="Emp.Firstname" class="form-control" />
+                <span asp-validation-for="Emp.Firstname" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Lastname" class="col-md-2 control-label"></label>
+            <label asp-for="Emp.Lastname" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Lastname" class="form-control" />
-                <span asp-validation-for="Lastname" class="text-danger"></span>
+                <input asp-for="Emp.Lastname" class="form-control" />
+                <span asp-validation-for="Emp.Lastname" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Startdate" class="col-md-2 control-label"></label>
+            <label asp-for="Emp.Startdate" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Startdate" class="form-control" />
-                <span asp-validation-for="Startdate" class="text-danger"></span>
+                <input asp-for="Emp.Startdate" class="form-control" />
+                <span asp-validation-for="Emp.Startdate" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="DepartmentId" class="control-label col-md-2"></label>
+            <label asp-for="Emp.DepartmentId" class="control-label col-md-2"></label>
             <div class="col-md-10">
-                <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
-                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                <select asp-for="Emp.DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
+                <span asp-validation-for="Emp.DepartmentId" class="text-danger"></span>
             </div>
         </div>
+  
+        @{ 
+            List<SelectListItem> compitems = new List<SelectListItem>();
+            foreach(var x in Model.Comp)
+            {
+                compitems.Add(new SelectListItem
+                {
+                    Text = x.Make,
+                    Value = x.ComputerId.ToString()
+
+                });
+            }
+        }
+        @Html.DropDownList(
+        "Computers", compitems, "Make a selection")
+    
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />

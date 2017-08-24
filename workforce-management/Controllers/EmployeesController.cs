@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using workforceManagement.Models;
+using workforceManagement.Models.ViewModels;
 
 namespace workforceManagement.Controllers
 {
@@ -76,18 +77,61 @@ namespace workforceManagement.Controllers
         // GET: Employees/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            EmployeeEditViewModel Empvm = new EmployeeEditViewModel();
             if (id == null)
             {
                 return NotFound();
             }
 
-            var employee = await _context.Employee.SingleOrDefaultAsync(m => m.EmployeeId == id);
+            var employee = await _context.Employee
+            .Include(c => c.ComputerEmp)
+            .Include(t => t.TrainingPrgEmp)
+            .Include(d => d.Department)
+            .SingleOrDefaultAsync(m => m.EmployeeId == id);
+
             if (employee == null)
             {
                 return NotFound();
             }
+            Empvm.Emp = employee;
+            var compy = _context.Computer.Include("ComputerEmp.Computer").ToList();
+            Empvm.Train = _context.TrainingProgram.Include("TrainingPrgEmp.TrainingProgram").ToList();
+
+            //TrainingProgram Start date greater than datetime.now and not signed up for specific employee
+            //add to viewmodel every trainingProgram that fits this condition
+
+            //currently signed up, but hasn't started yet
+            //add to viewmodel every trainingProgram that they will attend in the future 
+
+            //trainingProgram StartDate Less than datetime.now and they have attended it, for specific employee
+            //add to viewmodel every trainingProgram that they have attended in the past
+
+            //if computerEmp.employeeId == selected employeeId / add to viewmodel 
+            //if computer.decommisionDate == null / add to viewmodel 
+            //if computeremp.End != null / add to viewmodel 
+
+            //List 1
+            List<Computer> notDecommissioned = new List<Computer>();
+            foreach(var x in compy)
+            { 
+                if(x.DecommisionDate == null)
+                {
+                    notDecommissioned.Add(x);
+                }
+            }
+            foreach (var y in notDecommissioned)
+            {
+                if (_context.ComputerEmp.Any(ce => y.ComputerId == ce.ComputerId && ce.End != null))
+                {
+                    Empvm.Comp.Add(y);
+                }
+
+            }
+
             ViewData["DepartmentId"] = new SelectList(_context.Set<Department>(), "DepartmentId", "DepartmentId", employee.DepartmentId);
-            return View(employee);
+
+            return View(Empvm);
+
         }
 
         // POST: Employees/Edit/5
