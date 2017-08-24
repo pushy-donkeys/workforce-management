@@ -105,6 +105,32 @@ namespace workforceManagement.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TrainingPrgEmp",
+                columns: table => new
+                {
+                    TrainingPrgEmpId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EmployeeId = table.Column<int>(nullable: false),
+                    TrainingProgramId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrainingPrgEmp", x => x.TrainingPrgEmpId);
+                    table.ForeignKey(
+                        name: "FK_TrainingPrgEmp_Employee_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employee",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TrainingPrgEmp_TrainingProgram_TrainingProgramId",
+                        column: x => x.TrainingProgramId,
+                        principalTable: "TrainingProgram",
+                        principalColumn: "TrainingProgramId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ComputerEmp_ComputerId",
                 table: "ComputerEmp",
@@ -119,6 +145,16 @@ namespace workforceManagement.Migrations
                 name: "IX_Employee_DepartmentId",
                 table: "Employee",
                 column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingPrgEmp_EmployeeId",
+                table: "TrainingPrgEmp",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingPrgEmp_TrainingProgramId",
+                table: "TrainingPrgEmp",
+                column: "TrainingProgramId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -127,13 +163,16 @@ namespace workforceManagement.Migrations
                 name: "ComputerEmp");
 
             migrationBuilder.DropTable(
-                name: "TrainingProgram");
+                name: "TrainingPrgEmp");
 
             migrationBuilder.DropTable(
                 name: "Computer");
 
             migrationBuilder.DropTable(
                 name: "Employee");
+
+            migrationBuilder.DropTable(
+                name: "TrainingProgram");
 
             migrationBuilder.DropTable(
                 name: "Department");

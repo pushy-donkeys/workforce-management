@@ -92,6 +92,24 @@ namespace workforceManagement.Migrations
                     b.ToTable("Employee");
                 });
 
+            modelBuilder.Entity("workforceManagement.Models.TrainingPrgEmp", b =>
+                {
+                    b.Property<int>("TrainingPrgEmpId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<int>("TrainingProgramId");
+
+                    b.HasKey("TrainingPrgEmpId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("TrainingProgramId");
+
+                    b.ToTable("TrainingPrgEmp");
+                });
+
             modelBuilder.Entity("workforceManagement.Models.TrainingProgram", b =>
                 {
                     b.Property<int>("TrainingProgramId")
@@ -121,7 +139,7 @@ namespace workforceManagement.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("workforceManagement.Models.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("ComputerEmp")
                         .HasForeignKey("EmployeeId");
                 });
 
@@ -130,6 +148,19 @@ namespace workforceManagement.Migrations
                     b.HasOne("workforceManagement.Models.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("workforceManagement.Models.TrainingPrgEmp", b =>
+                {
+                    b.HasOne("workforceManagement.Models.Employee", "Employee")
+                        .WithMany("TrainingPrgEmp")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("workforceManagement.Models.TrainingProgram", "TrainingProgram")
+                        .WithMany("TrainingPrgEmp")
+                        .HasForeignKey("TrainingProgramId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }

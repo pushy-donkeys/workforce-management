@@ -11,6 +11,6 @@ namespace workforceManagement.Models
         [Key]
         public int DepartmentId {get;set;}
         public string DepartmentName { get; set; }
-        public ICollection<Employee> Employee;
+        public ICollection<Employee> Employee { get; set; }
     }
 }
