@@ -130,6 +130,12 @@ namespace workforceManagement.Controllers
                 return NotFound();
             }
 
+            //Checks if the computerId passed in exists on the ComputerEmp join table
+            if(_context.ComputerEmp.Any(x => x.ComputerId== id))
+            {
+                return View();
+            }
+
             return View(computer);
         }
 
