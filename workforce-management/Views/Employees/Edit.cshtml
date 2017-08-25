@@ -40,7 +40,68 @@
                 <span asp-validation-for="Emp.DepartmentId" class="text-danger"></span>
             </div>
         </div>
-  
+        @{
+            List<SelectListItem> trainitems3 = new List<SelectListItem>();
+
+            foreach (var x in Model.past)
+            {
+                trainitems3.Add(new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.TrainingProgramId.ToString()
+
+                });
+
+            }
+        }
+        @*@Html.DropDownList(
+        "Past training Programs", trainitems3, "Past Programs")*@
+        <h3>Past Training Programs</h3>
+        @foreach (var x in trainitems3)
+        {
+            @x.Text
+            <br />
+        }
+
+        @{
+            List<SelectListItem> trainitems = new List<SelectListItem>();
+            foreach (var x in Model.future)
+            {
+                trainitems.Add(new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.TrainingProgramId.ToString()
+
+                });
+            }
+        }
+        @Html.DropDownList(
+        "Available training Programs", trainitems, "Available Programs")
+
+        @{
+            List<SelectListItem> trainitems2 = new List<SelectListItem>();
+
+            foreach (var x in Model.current)
+            {
+                trainitems2.Add(new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.TrainingProgramId.ToString()
+
+                });
+            }
+        }
+        @Html.DropDownList(
+        "Current training Programs", trainitems2, "Current Programs")
+
+
+   
+
+
+
+
+
+
         @{ 
             List<SelectListItem> compitems = new List<SelectListItem>();
             foreach(var x in Model.Comp)
