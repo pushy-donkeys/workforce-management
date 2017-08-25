@@ -13,5 +13,10 @@ namespace workforceManagement.Models.ViewModels
 
         // this is a list of all employees attending a particular program
         public List<Employee> Emp { get; set; }
+
+        public TrainingProgramViewModel()
+        {
+            Emp = new List<Employee>();
+        }
     }
 }
