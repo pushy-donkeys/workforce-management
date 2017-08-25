@@ -87,6 +87,7 @@ namespace workforceManagement.Controllers
             .Include(c => c.ComputerEmp)
             .Include(t => t.TrainingPrgEmp)
             .Include(d => d.Department)
+
             .SingleOrDefaultAsync(m => m.EmployeeId == id);
 
             if (employee == null)

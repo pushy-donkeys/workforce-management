@@ -70,7 +70,7 @@ namespace workforceManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TrainingProgramId,TrainingProgramName,StartDate,EndDate,Description,MaxAttendees")] TrainingProgram trainingProgram)
+        public async Task<IActionResult> Create([Bind("TrainingProgramId,Name,StartDate,EndDate,Description,MaxAttendees")] TrainingProgram trainingProgram)
         {
             if (ModelState.IsValid)
             {
