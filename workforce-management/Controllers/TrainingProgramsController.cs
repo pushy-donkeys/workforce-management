@@ -48,7 +48,7 @@ namespace workforceManagement.Controllers
             foreach (var x in tp.TrainingPrgEmp)
             {
                 // Since TrainingPrgEmp has an instance of Employee on it, we can access that Employee
-                TPViewMod.Emp.Add(x.Employee);
+                TPViewMod.Emp.Add(x.Employee);       
             }
 
                 if (TPViewMod.TrainProg == null)

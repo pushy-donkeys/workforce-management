@@ -44,6 +44,11 @@
             @Html.LabelFor(model => model.TrainProg.TrainingPrgEmp, "Employee")        
         </dt>
         <dd>
+        <!---- Adding an IF statement with a message to display if there are no Employees attending a program -->
+        @if (Model.TrainProg.TrainingPrgEmp.Count == 0)
+        {
+            <span>There are currently no Employees attending this training program.</span>
+        }
         @foreach(var x in Model.TrainProg.TrainingPrgEmp)
         {
             @x.Employee.Firstname @x.Employee.Lastname;
