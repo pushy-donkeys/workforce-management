@@ -5,6 +5,10 @@ This application allows a user to perform various actions for Employees, Compute
 
 ## Installing Core Technologies
 
+### Visual Studio
+Microsoft Visual Studio is an integrated development environment (IDE) from Microsoft. It is used to develop computer programs for Microsoft Windows, as well as web sites, web apps, web services and mobile apps.
+
+
 ### Visual Studio Code
 Visual Studio Code is Microsoft's cross-platform editor that we'll be using during orientation for writing C# and building .NET applications. Make sure you add the C# extension immediately after installation completes.
 
