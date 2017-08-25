@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using workforceManagement.Models;
+using workforceManagement.Models.ViewModels;
 
 namespace workforceManagement.Controllers
 {
@@ -27,19 +28,35 @@ namespace workforceManagement.Controllers
         // GET: TrainingPrograms/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            // This creates a new instance of the TP view model
+            // authored by Kyle Kellums
+
+            TrainingProgramViewModel TPViewMod = new TrainingProgramViewModel();
             if (id == null)
             {
                 return NotFound();
             }
 
-            var trainingProgram = await _context.TrainingProgram
+            // Created a variable 'tp' to hold the specific instance the user clicked on in the index. 
+            // The TrainingProgramId gets passed into the method.
+            TrainingProgram tp = await _context.TrainingProgram.Include(etp => etp.TrainingPrgEmp).ThenInclude(etp => etp.Employee)                
                 .SingleOrDefaultAsync(m => m.TrainingProgramId == id);
-            if (trainingProgram == null)
+
+            TPViewMod.TrainProg = tp;
+
+            // loops through the ICollection in TrainingProgram.cs of TrainingPrgEmp
+            foreach (var x in tp.TrainingPrgEmp)
+            {
+                // Since TrainingPrgEmp has an instance of Employee on it, we can access that Employee
+                TPViewMod.Emp.Add(x.Employee);       
+            }
+
+                if (TPViewMod.TrainProg == null)
             {
                 return NotFound();
             }
 
-            return View(trainingProgram);
+            return View(TPViewMod);
         }
 
         // GET: TrainingPrograms/Create

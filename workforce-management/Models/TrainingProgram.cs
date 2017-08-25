@@ -18,7 +18,5 @@ namespace workforceManagement.Models
         public string Description { get; set; }
         public int MaxAttendees { get; set; }
         public ICollection<TrainingPrgEmp> TrainingPrgEmp { get; set; }
-
-
     }
 }

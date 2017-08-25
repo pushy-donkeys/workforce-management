@@ -1,4 +1,4 @@
-@model workforceManagement.Models.TrainingProgram
+@model workforceManagement.Models.ViewModels.TrainingProgramViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,38 +11,52 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.TrainProg.Name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.TrainProg.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
+            @Html.DisplayNameFor(model => model.TrainProg.StartDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.StartDate)
+            @Html.DisplayFor(model => model.TrainProg.StartDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
+            @Html.DisplayNameFor(model => model.TrainProg.EndDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.EndDate)
+            @Html.DisplayFor(model => model.TrainProg.EndDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.TrainProg.Description)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.TrainProg.Description)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.MaxAttendees)
+            @Html.DisplayNameFor(model => model.TrainProg.MaxAttendees)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.MaxAttendees)
+            @Html.DisplayFor(model => model.TrainProg.MaxAttendees)
+        </dd>
+        <dt>
+            @Html.LabelFor(model => model.TrainProg.TrainingPrgEmp, "Employee")        
+        </dt>
+        <dd>
+        <!---- Adding an IF statement with a message to display if there are no Employees attending a program -->
+        @if (Model.TrainProg.TrainingPrgEmp.Count == 0)
+        {
+            <span>There are currently no Employees attending this training program.</span>
+        }
+        @foreach(var x in Model.TrainProg.TrainingPrgEmp)
+        {
+            @x.Employee.Firstname @x.Employee.Lastname;
+        }
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.TrainingProgramId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.TrainProg.TrainingProgramId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
