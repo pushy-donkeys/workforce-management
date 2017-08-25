@@ -112,6 +112,7 @@ namespace workforceManagement.Controllers
 
             //List 1
             List<Computer> notDecommissioned = new List<Computer>();
+            //BEGIN LOOPING OVER EVERY COMPUTER TO FIND ONES THAT ARE IN CIRCULATION
             foreach(var x in compy)
             { 
                 if(x.DecommisionDate == null)
@@ -119,14 +120,24 @@ namespace workforceManagement.Controllers
                     notDecommissioned.Add(x);
                 }
             }
+            //END
+
+            //BEGIN LOOPING OVER COMPUTERS IN CIRCULATION TO FIND ONES THAT 
+            //EXIST ON THE COMPUTER TABLE AND COMPUTEREMP TABLE AND HAS AN END DATE
+            //AND COMPUTERS THAT DON'T EXIST ON THE COMPUTEREMP TABLE
             foreach (var y in notDecommissioned)
             {
                 if (_context.ComputerEmp.Any(ce => y.ComputerId == ce.ComputerId && ce.End != null))
                 {
                     Empvm.Comp.Add(y);
                 }
+                if (!_context.ComputerEmp.Any(ce => y.ComputerId == ce.ComputerId ))
+                {
+                    Empvm.Comp.Add(y);
+                }
 
             }
+            //END
 
             ViewData["DepartmentId"] = new SelectList(_context.Set<Department>(), "DepartmentId", "DepartmentId", employee.DepartmentId);
 
