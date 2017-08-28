@@ -200,7 +200,12 @@ namespace workforceManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EmployeeEditViewModel Empvm)
         {
+            if( id != Empvm.Emp.EmployeeId)
+            {
+                return NotFound();
+            }
            
+            //If a selection has been made for a computer then update the database.
             if(Empvm.ComputerId != null )
             {
                 ComputerEmp empcomp = new ComputerEmp() { EmployeeId = Empvm.Emp.EmployeeId, ComputerId = Empvm.ComputerId ?? default(int) };
@@ -226,7 +231,7 @@ namespace workforceManagement.Controllers
                 return RedirectToAction("Index");
             }
         }
-
+            //If no selection has been made, no changes will be made to the database
             else if(Empvm.ComputerId == null)
             {
                 ComputerEmp empcomp = new ComputerEmp() { EmployeeId = Empvm.Emp.EmployeeId, ComputerId = Empvm.ComputerId ?? default(int) };
@@ -254,7 +259,7 @@ namespace workforceManagement.Controllers
                 }
             }
 
-
+            //If a selection has been made for a training program, update the database
             if ( Empvm.TrainId != null)
             {
                 TrainingPrgEmp emptrain = new TrainingPrgEmp() { EmployeeId = Empvm.Emp.EmployeeId, TrainingProgramId = Empvm.TrainId ?? default(int) };
@@ -280,6 +285,7 @@ namespace workforceManagement.Controllers
                     return RedirectToAction("Index");
                 }
             }
+            //if no selection has been made, the database will not be updated
             else if (Empvm.TrainId == null)
             {
                 TrainingPrgEmp emptrain = new TrainingPrgEmp() { EmployeeId = Empvm.Emp.EmployeeId, TrainingProgramId = Empvm.TrainId ?? default(int) };
