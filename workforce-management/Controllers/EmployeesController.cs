@@ -199,20 +199,20 @@ namespace workforceManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EmployeeEditViewModel Empvm)
         {
-            if (id != Empvm.Emp.EmployeeId)
+           
+            if(Empvm.ComputerId != null )
             {
-                return NotFound();
-            }
-
+                ComputerEmp empcomp = new ComputerEmp() { EmployeeId = Empvm.Emp.EmployeeId, ComputerId = Empvm.ComputerId ?? default(int) };
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(Empvm.Emp);
-                    await _context.SaveChangesAsync();
+                        _context.Update(Empvm.Emp);
+                        _context.Add(empcomp);
+                        await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
-                {
+                    {
                     if (!EmployeeExists(Empvm.Emp.EmployeeId))
                     {
                         return NotFound();
@@ -224,6 +224,187 @@ namespace workforceManagement.Controllers
                 }
                 return RedirectToAction("Index");
             }
+        }
+        else if(Empvm.ComputerId != null )
+            {
+                ComputerEmp empcomp = new ComputerEmp() { EmployeeId = Empvm.Emp.EmployeeId, ComputerId = Empvm.ComputerId ?? default(int) };
+
+                if(ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Update(Empvm.Emp);
+                        _context.Add(empcomp);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch(DbUpdateConcurrencyException)
+                    {
+                        if(!EmployeeExists(Empvm.Emp.EmployeeId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+            else if(Empvm.ComputerId == null)
+            {
+                ComputerEmp empcomp = new ComputerEmp() { EmployeeId = Empvm.Emp.EmployeeId, ComputerId = Empvm.ComputerId ?? default(int) };
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Update(Empvm.Emp);
+                        _context.Add(empcomp);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!EmployeeExists(Empvm.Emp.EmployeeId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+            else if(Empvm.ComputerId == null)
+            {
+                if(ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Update(Empvm.Emp);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch(DbUpdateConcurrencyException)
+                    {
+                        if(!EmployeeExists(Empvm.Emp.EmployeeId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+
+
+            if ( Empvm.TrainId != null)
+            {
+                TrainingPrgEmp emptrain = new TrainingPrgEmp() { EmployeeId = Empvm.Emp.EmployeeId, TrainingProgramId = Empvm.TrainId ?? default(int) };
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Update(Empvm.Emp);
+                        _context.Add(emptrain);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!EmployeeExists(Empvm.Emp.EmployeeId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+            else if (Empvm.TrainId == null)
+            {
+                TrainingPrgEmp emptrain = new TrainingPrgEmp() { EmployeeId = Empvm.Emp.EmployeeId, TrainingProgramId = Empvm.TrainId ?? default(int) };
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Update(Empvm.Emp);
+                        _context.Add(emptrain);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!EmployeeExists(Empvm.Emp.EmployeeId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+            else if ( Empvm.TrainId != null)
+            {
+                TrainingPrgEmp emptrain = new TrainingPrgEmp() { EmployeeId = Empvm.Emp.EmployeeId, TrainingProgramId = Empvm.TrainId ?? default(int) };
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Update(Empvm.Emp);
+                        _context.Add(emptrain);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!EmployeeExists(Empvm.Emp.EmployeeId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+            else if ( Empvm.TrainId == null)
+            {
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Update(Empvm.Emp);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!EmployeeExists(Empvm.Emp.EmployeeId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+
+
+
             ViewData["DepartmentId"] = new SelectList(_context.Set<Department>(), "DepartmentId", "DepartmentId", Empvm.Emp.DepartmentId);
             return View(Empvm.Emp);
         }

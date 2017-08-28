@@ -91,15 +91,11 @@
                 });
             }
         }
-        @Html.DropDownList(
-        "Current training Programs", trainitems2, "Current Programs")
+        @Html.DropDownListFor(
+        x => x.TrainId, trainitems2, "Current Programs")
 
 
-   
-
-
-
-
+  
 
 
         @{ 
@@ -114,8 +110,9 @@
                 });
             }
         }
-        @Html.DropDownList(
-        "Computers", compitems, "Make a selection")
+        @Html.DropDownListFor(
+        c => c.ComputerId, compitems, "Choose a computer")
+
     
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
