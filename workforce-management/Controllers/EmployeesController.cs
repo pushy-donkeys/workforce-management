@@ -225,32 +225,7 @@ namespace workforceManagement.Controllers
                 return RedirectToAction("Index");
             }
         }
-        else if(Empvm.ComputerId != null )
-            {
-                ComputerEmp empcomp = new ComputerEmp() { EmployeeId = Empvm.Emp.EmployeeId, ComputerId = Empvm.ComputerId ?? default(int) };
 
-                if(ModelState.IsValid)
-                {
-                    try
-                    {
-                        _context.Update(Empvm.Emp);
-                        _context.Add(empcomp);
-                        await _context.SaveChangesAsync();
-                    }
-                    catch(DbUpdateConcurrencyException)
-                    {
-                        if(!EmployeeExists(Empvm.Emp.EmployeeId))
-                        {
-                            return NotFound();
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
-                    return RedirectToAction("Index");
-                }
-            }
             else if(Empvm.ComputerId == null)
             {
                 ComputerEmp empcomp = new ComputerEmp() { EmployeeId = Empvm.Emp.EmployeeId, ComputerId = Empvm.ComputerId ?? default(int) };
@@ -258,37 +233,14 @@ namespace workforceManagement.Controllers
                 if (ModelState.IsValid)
                 {
                     try
-                    {
+                    { 
                         _context.Update(Empvm.Emp);
-                        _context.Add(empcomp);
+                       
                         await _context.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException)
                     {
                         if (!EmployeeExists(Empvm.Emp.EmployeeId))
-                        {
-                            return NotFound();
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
-                    return RedirectToAction("Index");
-                }
-            }
-            else if(Empvm.ComputerId == null)
-            {
-                if(ModelState.IsValid)
-                {
-                    try
-                    {
-                        _context.Update(Empvm.Emp);
-                        await _context.SaveChangesAsync();
-                    }
-                    catch(DbUpdateConcurrencyException)
-                    {
-                        if(!EmployeeExists(Empvm.Emp.EmployeeId))
                         {
                             return NotFound();
                         }
@@ -336,7 +288,7 @@ namespace workforceManagement.Controllers
                     try
                     {
                         _context.Update(Empvm.Emp);
-                        _context.Add(emptrain);
+                     
                         await _context.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException)
@@ -353,55 +305,7 @@ namespace workforceManagement.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            else if ( Empvm.TrainId != null)
-            {
-                TrainingPrgEmp emptrain = new TrainingPrgEmp() { EmployeeId = Empvm.Emp.EmployeeId, TrainingProgramId = Empvm.TrainId ?? default(int) };
-
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        _context.Update(Empvm.Emp);
-                        _context.Add(emptrain);
-                        await _context.SaveChangesAsync();
-                    }
-                    catch (DbUpdateConcurrencyException)
-                    {
-                        if (!EmployeeExists(Empvm.Emp.EmployeeId))
-                        {
-                            return NotFound();
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
-                    return RedirectToAction("Index");
-                }
-            }
-            else if ( Empvm.TrainId == null)
-            {
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        _context.Update(Empvm.Emp);
-                        await _context.SaveChangesAsync();
-                    }
-                    catch (DbUpdateConcurrencyException)
-                    {
-                        if (!EmployeeExists(Empvm.Emp.EmployeeId))
-                        {
-                            return NotFound();
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
-                    return RedirectToAction("Index");
-                }
-            }
+           
 
 
 
