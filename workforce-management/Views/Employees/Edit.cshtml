@@ -40,7 +40,63 @@
                 <span asp-validation-for="Emp.DepartmentId" class="text-danger"></span>
             </div>
         </div>
+        @{
+            List<SelectListItem> trainitems3 = new List<SelectListItem>();
+
+            foreach (var x in Model.past)
+            {
+                trainitems3.Add(new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.TrainingProgramId.ToString()
+
+                });
+
+            }
+        }
+
+        <h3>Past Training Programs</h3>
+        @foreach (var x in trainitems3)
+        {
+            @x.Text
+            <br />
+        }
+
+        @{
+            List<SelectListItem> trainitems = new List<SelectListItem>();
+            foreach (var x in Model.future)
+            {
+                trainitems.Add(new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.TrainingProgramId.ToString()
+
+                });
+            }
+        }
+        @Html.DropDownList(
+        "Available training Programs", trainitems, "Available Programs")
+
+        @{
+            List<SelectListItem> trainitems2 = new List<SelectListItem>();
+
+            foreach (var x in Model.current)
+            {
+                trainitems2.Add(new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.TrainingProgramId.ToString()
+
+                });
+            }
+        }
+        @Html.DropDownListFor(
+        x => x.TrainId, trainitems2, "Current Programs")
+
+
   
+
+
         @{ 
             List<SelectListItem> compitems = new List<SelectListItem>();
             foreach(var x in Model.Comp)
@@ -53,8 +109,9 @@
                 });
             }
         }
-        @Html.DropDownList(
-        "Computers", compitems, "Make a selection")
+        @Html.DropDownListFor(
+        c => c.ComputerId, compitems, "Choose a computer")
+
     
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

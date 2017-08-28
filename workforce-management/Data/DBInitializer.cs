@@ -176,6 +176,7 @@ namespace workforceManagement.Data
                         EmployeeId =3,
                         TrainingProgramId = 3
                     }
+
                 };
 
                 foreach (TrainingPrgEmp i in trainingPrgEmp)

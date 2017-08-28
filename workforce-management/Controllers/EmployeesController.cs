@@ -96,10 +96,57 @@ namespace workforceManagement.Controllers
             }
             Empvm.Emp = employee;
             var compy = _context.Computer.Include("ComputerEmp.Computer").ToList();
-            Empvm.Train = _context.TrainingProgram.Include("TrainingPrgEmp.TrainingProgram").ToList();
+            var trainy = _context.TrainingProgram.Include("TrainingPrgEmp").ToList();
 
             //TrainingProgram Start date greater than datetime.now and not signed up for specific employee
             //add to viewmodel every trainingProgram that fits this condition
+            List<TrainingProgram> allPrograms = new List<TrainingProgram>();
+            HashSet<TrainingProgram> futurePrograms = new HashSet<TrainingProgram>();
+            List<TrainingProgram> pastPrograms = new List<TrainingProgram>();
+            List<TrainingProgram> currentPrograms = new List<TrainingProgram>();
+            List<TrainingProgram> allPastPrograms = new List<TrainingProgram>();
+            
+            //GET A LIST OF ALL PROGRAMS WHERE THE START DATE IS IN THE FUTURE OR ON THE SAME DATE
+            foreach(var x in trainy)
+            {
+                if(x.StartDate >= DateTime.Today)
+                {
+                    allPrograms.Add(x);
+                }
+            }
+
+            //GET A LIST OF ALL PROGRAMS WHERE THE END DATE IS IN THE PAST
+            foreach(var x in trainy)
+            {
+                if(x.EndDate < DateTime.Now)
+                {
+                    allPastPrograms.Add(x);
+                }
+            }
+            //GET ALL TRAINING PROGRAMS THE CURRENT EMPLOYEE CAN ATTEND
+            foreach(var y in allPrograms)
+            {
+                if(!_context.TrainingPrgEmp.Any(tpe => tpe.EmployeeId == id && y.TrainingProgramId == tpe.TrainingProgramId))
+                {
+                    Empvm.future.Add(y);
+                }
+            }
+            //GET ALL TRAINING PROGRAMS THE CURRENT EMPLOYEE IS ATTENDING NOW
+            foreach(var z in allPrograms)
+            {
+                if(_context.TrainingPrgEmp.Any(tpe => tpe.EmployeeId == id && z.TrainingProgramId ==tpe.TrainingProgramId))
+                {
+                    Empvm.current.Add(z);
+                }
+            }
+            //GET ALL TRAINING PROGRAMS THE CURRENT EMPLOYEE HAS ATTENDED IN THE PAST
+            foreach(var x in allPastPrograms)
+            {
+                if (_context.TrainingPrgEmp.Any(tpe => tpe.EmployeeId == id && x.TrainingProgramId == tpe.TrainingProgramId))
+                {
+                    Empvm.past.Add(x);
+                }
+            }
 
             //currently signed up, but hasn't started yet
             //add to viewmodel every trainingProgram that they will attend in the future 
@@ -151,23 +198,23 @@ namespace workforceManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeId,Firstname,Lastname,Startdate,DepartmentId")] Employee employee)
+        public async Task<IActionResult> Edit(int id, EmployeeEditViewModel Empvm)
         {
-            if (id != employee.EmployeeId)
+           
+            if(Empvm.ComputerId != null )
             {
-                return NotFound();
-            }
-
+                ComputerEmp empcomp = new ComputerEmp() { EmployeeId = Empvm.Emp.EmployeeId, ComputerId = Empvm.ComputerId ?? default(int) };
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(employee);
-                    await _context.SaveChangesAsync();
+                        _context.Update(Empvm.Emp);
+                        _context.Add(empcomp);
+                        await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
-                {
-                    if (!EmployeeExists(employee.EmployeeId))
+                    {
+                    if (!EmployeeExists(Empvm.Emp.EmployeeId))
                     {
                         return NotFound();
                     }
@@ -178,8 +225,93 @@ namespace workforceManagement.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["DepartmentId"] = new SelectList(_context.Set<Department>(), "DepartmentId", "DepartmentId", employee.DepartmentId);
-            return View(employee);
+        }
+
+            else if(Empvm.ComputerId == null)
+            {
+                ComputerEmp empcomp = new ComputerEmp() { EmployeeId = Empvm.Emp.EmployeeId, ComputerId = Empvm.ComputerId ?? default(int) };
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    { 
+                        _context.Update(Empvm.Emp);
+                       
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!EmployeeExists(Empvm.Emp.EmployeeId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+
+
+            if ( Empvm.TrainId != null)
+            {
+                TrainingPrgEmp emptrain = new TrainingPrgEmp() { EmployeeId = Empvm.Emp.EmployeeId, TrainingProgramId = Empvm.TrainId ?? default(int) };
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Update(Empvm.Emp);
+                        _context.Add(emptrain);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!EmployeeExists(Empvm.Emp.EmployeeId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+            else if (Empvm.TrainId == null)
+            {
+                TrainingPrgEmp emptrain = new TrainingPrgEmp() { EmployeeId = Empvm.Emp.EmployeeId, TrainingProgramId = Empvm.TrainId ?? default(int) };
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Update(Empvm.Emp);
+                     
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!EmployeeExists(Empvm.Emp.EmployeeId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+           
+
+
+
+            ViewData["DepartmentId"] = new SelectList(_context.Set<Department>(), "DepartmentId", "DepartmentId", Empvm.Emp.DepartmentId);
+            return View(Empvm.Emp);
         }
 
         // GET: Employees/Delete/5
